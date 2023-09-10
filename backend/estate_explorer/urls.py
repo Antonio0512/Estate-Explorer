@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('api/accounts/', include('accounts.urls')),
     path('api/realtors/', include('realtors.urls')),
+    # path('api/listings/', include('listings.urls'))
 ]
 
 if settings.DEBUG:
