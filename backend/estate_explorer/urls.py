@@ -13,7 +13,8 @@ urlpatterns = [
 
     path('api/accounts/', include('accounts.urls')),
     path('api/realtors/', include('realtors.urls')),
-    path('api/listings/', include('listings.urls'))
+    path('api/listings/', include('listings.urls')),
+    path('api/contacts/', include('contacts.urls'))
 ]
 
 if settings.DEBUG:
