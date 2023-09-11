@@ -10,22 +10,28 @@ import {NotFound} from "./components/NotFound";
 import {Layout} from './hocs/Layout';
 
 import "./sass/main.scss";
+import {AuthProvider} from "./contexts/authContext";
+import {AlertProvider} from "./contexts/alertContext";
 
 function App() {
     return (
-        <Layout>
-            <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/about' element={<About/>}/>
-                <Route path='/contact' element={<Contact/>}/>
-                <Route path='/listings' element={<Listings/>}/>
-                <Route path='/listings/:id' element={<ListingDetails/>}/>
-                <Route path='/signup' element={<SignUp/>}/>
-                <Route path='/signin' element={<SignIn/>}/>
+        <AuthProvider>
+            <AlertProvider>
+                <Layout>
+                    <Routes>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/about' element={<About/>}/>
+                        <Route path='/contact' element={<Contact/>}/>
+                        <Route path='/listings' element={<Listings/>}/>
+                        <Route path='/listings/:id' element={<ListingDetails/>}/>
+                        <Route path='/signup' element={<SignUp/>}/>
+                        <Route path='/signin' element={<SignIn/>}/>
 
-                <Route path="*" element={<NotFound/>}/>
-            </Routes>
-        </Layout>
+                        <Route path="*" element={<NotFound/>}/>
+                    </Routes>
+                </Layout>
+            </AlertProvider>
+        </AuthProvider>
     );
 }
 

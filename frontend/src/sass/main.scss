@@ -2,14 +2,20 @@
 @import 'abstracts/variables';
 
 @import 'base/base';
-@import "base/utilities";
+@import 'base/utilities';
 
-@import "components/not_found";
+@import 'components/alert';
+@import 'components/auth';
+@import 'components/card';
+@import 'components/listingform';
+@import 'components/navbar';
+@import 'components/notfound';
+@import 'components/pagination';
 
-@import "layout/grid";
+@import 'layout/grid';
 
-@import "pages/about";
-@import "pages/contacts";
-@import "pages/home";
-@import "pages/listings";
-@import "pages/listingdetails";
+@import 'pages/about';
+@import 'pages/contacts';
+@import 'pages/home';
+@import 'pages/listings';
+@import 'pages/listingdetails';
