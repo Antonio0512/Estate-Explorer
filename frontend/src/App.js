@@ -12,6 +12,8 @@ import {Layout} from './hocs/Layout';
 import "./sass/main.scss";
 import {AuthProvider} from "./contexts/authContext";
 import {AlertProvider} from "./contexts/alertContext";
+import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
+import {NoAuthRouteGuard} from "./routeGuards/noAuthRouteGuard";
 
 function App() {
     return (
@@ -20,12 +22,19 @@ function App() {
                 <Layout>
                     <Routes>
                         <Route path='/' element={<Home/>}/>
+
+                        <Route element={<NoAuthRouteGuard/>}>
+                            <Route path='/signup' element={<SignUp/>}/>
+                            <Route path='/signin' element={<SignIn/>}/>
+                        </Route>
+
                         <Route path='/about' element={<About/>}/>
                         <Route path='/contact' element={<Contact/>}/>
                         <Route path='/listings' element={<Listings/>}/>
-                        <Route path='/listings/:id' element={<ListingDetails/>}/>
-                        <Route path='/signup' element={<SignUp/>}/>
-                        <Route path='/signin' element={<SignIn/>}/>
+
+                        <Route element={<AuthRouteGuard/>}>
+                            <Route path='/listings/:id' element={<ListingDetails/>}/>
+                        </Route>
 
                         <Route path="*" element={<NotFound/>}/>
                     </Routes>

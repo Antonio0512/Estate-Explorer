@@ -36,10 +36,6 @@ export const SignUp = () => {
     };
 
 
-    if (isAuthenticated) {
-        navigate('/');
-    }
-
     return (
         <div className='auth'>
             <Helmet>

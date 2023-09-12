@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import {AuthContext} from "../contexts/authContext";
@@ -33,10 +33,6 @@ export const SignIn = () => {
             }
         }
     };
-
-    if (isAuthenticated) {
-        navigate('/');
-    }
 
     return (
         <div className='auth'>
