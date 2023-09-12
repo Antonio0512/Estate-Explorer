@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import {AuthContext} from "../contexts/authContext";
@@ -6,7 +6,7 @@ import {AuthContext} from "../contexts/authContext";
 export const SignIn = () => {
     const navigate = useNavigate();
 
-    const {signin, isAuthenticated} = useContext(AuthContext)
+    const {signin} = useContext(AuthContext)
     const [error, setError] = useState("")
     const [formData, setFormData] = useState({
         email: '',
@@ -16,7 +16,7 @@ export const SignIn = () => {
 
     const {email, password} = formData;
 
-    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
+    const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
     const onSubmit = async (e) => {
         e.preventDefault();

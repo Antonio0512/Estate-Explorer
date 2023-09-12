@@ -6,7 +6,7 @@ import {AuthContext} from "../contexts/authContext";
 export const SignUp = () => {
     const navigate = useNavigate();
 
-    const {signup, isAuthenticated} = useContext(AuthContext);
+    const {signup} = useContext(AuthContext);
     const [error, setError] = useState("")
 
     const [formData, setFormData] = useState({

@@ -11,14 +11,14 @@ import {Layout} from './hocs/Layout';
 
 import "./sass/main.scss";
 import {AuthProvider} from "./contexts/authContext";
-import {AlertProvider} from "./contexts/alertContext";
 import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
 import {NoAuthRouteGuard} from "./routeGuards/noAuthRouteGuard";
+import {ListingProvider} from "./contexts/listingContext";
 
 function App() {
     return (
         <AuthProvider>
-            <AlertProvider>
+            <ListingProvider>
                 <Layout>
                     <Routes>
                         <Route path='/' element={<Home/>}/>
@@ -39,7 +39,7 @@ function App() {
                         <Route path="*" element={<NotFound/>}/>
                     </Routes>
                 </Layout>
-            </AlertProvider>
+            </ListingProvider>
         </AuthProvider>
     );
 }
