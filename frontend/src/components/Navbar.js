@@ -11,7 +11,7 @@ export const Navbar = () => {
 
     const guestLinks = (
         <>
-            <Link className='navbar__top__auth__link' to='/login'>Login</Link>
+            <Link className='navbar__top__auth__link' to='/signin'>Login</Link>
             <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
         </>
     );
@@ -23,7 +23,9 @@ export const Navbar = () => {
                     <Link className='navbar__top__logo__link' to='/'>Realest Estate</Link>
                 </div>
                 <div className='navbar__top__auth'>
-                    {<>{isAuthenticated ? authLinks : guestLinks}</>}
+                    <>
+                        {isAuthenticated ? authLinks : guestLinks}
+                    </>
                 </div>
             </div>
             <div className='navbar__bottom'>

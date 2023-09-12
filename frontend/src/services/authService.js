@@ -4,7 +4,14 @@ const BASE_URL = "http://localhost:8000/api"
 
 export const signin = async (credentials) => {
     try {
-        const response = await axios.post(`${BASE_URL}/token/`, credentials);
+        const response = await axios.post(
+            `${BASE_URL}/accounts/signin/`,
+            JSON.stringify(credentials),
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
         return response.data;
     } catch (error) {
         throw error;
@@ -12,11 +19,18 @@ export const signin = async (credentials) => {
 };
 
 
-export const signup = async (userData) => {
+export const signup = async (credentials) => {
     try {
-        const response = await axios.post(`${BASE_URL}/accounts/signup/`, userData)
+        const response = await axios.post(
+            `${BASE_URL}/accounts/signup/`,
+            JSON.stringify(credentials),
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
         return response.data;
     } catch (error) {
-        throw error
+        throw error;
     }
 };

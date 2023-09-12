@@ -1,7 +1,7 @@
 import {createContext} from "react";
 import {useNavigate} from "react-router-dom";
-import {useLocalStorage} from "../hooks/useLocalStorage";
 import * as authService from "../services/authService"
+import {useLocalStorage} from "../hooks/useLocalStorage";
 
 export const AuthContext = createContext();
 
@@ -9,12 +9,12 @@ export const AuthProvider = ({children}) => {
     const [auth, setAuth] = useLocalStorage("auth", {});
     const navigate = useNavigate();
 
-    const signup = async (userData) => {
+    const signup = async (credentials) => {
         try {
-            await authService.signup(userData);
-            navigate('/signin')
+            const userData = await authService.signup(credentials);
+            setAuth(userData);
         } catch (error) {
-            throw new Error(error)
+            throw error
         }
     };
 
@@ -22,9 +22,8 @@ export const AuthProvider = ({children}) => {
         try {
             const userData = await authService.signin(credentials);
             setAuth(userData);
-            navigate('/');
         } catch (error) {
-            throw new Error(error)
+            throw error
         }
     };
 
@@ -37,7 +36,7 @@ export const AuthProvider = ({children}) => {
         signup,
         signin,
         logout,
-        isAuthenticated: !!auth.access_token
+        isAuthenticated: auth?.token
 
     }
 
