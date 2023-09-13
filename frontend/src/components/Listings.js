@@ -1,40 +1,34 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import {Card} from './Card';
 import {ListingContext} from "../contexts/listingContext";
 
 export const Listings = () => {
-    const {listings} = useContext(ListingContext)
+    const {searchListings} = useContext(ListingContext);
+
 
     const getListings = () => {
-        let listingsOnPage = [];
-        let result = [];
+        const listingsOnPage = [];
 
-        listings.map(listing => {
-            return listingsOnPage.push(
-                <Card
-                    key={listing.slug}
-                    listing={listing}
-                />
-            );
-        });
-
-        for (let i = 0; i < listings.length; i += 3) {
-            result.push(
-                <div className='row'>
-                    {listingsOnPage[i]}
-                    {listingsOnPage[i + 1] ? listingsOnPage[i + 1] : null}
-                    {listingsOnPage[i + 2] ? listingsOnPage[i + 2] : null}
+        for (let i = 0; i < searchListings.length; i += 3) {
+            const row = (
+                <div className='row' key={`row-${i}`}>
+                    {searchListings.slice(i, i + 3).map((listing) => (
+                        <div className='col-1-of-3' key={listing.slug}>
+                            <Card listing={listing}/>
+                        </div>
+                    ))}
                 </div>
             );
+            listingsOnPage.push(row);
         }
 
-        return result;
+        return listingsOnPage;
     };
+
 
     return (
         <div>
             {getListings()}
         </div>
-    );
-}
-
+    )
+};

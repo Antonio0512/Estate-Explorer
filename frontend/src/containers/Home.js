@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import {Helmet} from "react-helmet";
 import {Listings} from "../components/Listings";
 import {Pagination} from "../components/Pagination";
@@ -6,19 +6,28 @@ import {ListingForm} from "../components/ListingForm"
 import {ListingContext} from "../contexts/listingContext";
 
 export const Home = () => {
-    const {currentPage, totalPages, setCurrentPage, listings} = useContext(ListingContext);
+    const { searchCurrentPage, searchTotalPages, setSearchCurrentPage, searchListings } = useContext(ListingContext);
 
+    const itemsPerPage = 3;
     const previousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+        if (searchCurrentPage > 1) {
+            setSearchCurrentPage(searchCurrentPage - 1);
         }
     };
 
     const nextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
+        if (searchCurrentPage < searchTotalPages) {
+            setSearchCurrentPage(searchCurrentPage + 1);
         }
     };
+
+    // Calculate the start and end indices for the current page
+    const startIndex = (searchCurrentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    // Slice the searchListings array to display only items for the current page
+    const displayedListings = searchListings.slice(startIndex, endIndex);
+
 
     return (
         <main className="home">
@@ -33,19 +42,19 @@ export const Home = () => {
                 <ListingForm/>
             </section>
             <section className="home__listings">
-                <Listings/>
+                <Listings listings={displayedListings}/>
             </section>
-            <section className='listings__pagination'>
+            <section className='home__pagination'>
                 <div className='row'>
-                    {listings.length !== 0 ? (
+                    {searchListings.length !== 0 ? (
                         <Pagination
                             itemsPerPage={3}
-                            count={totalPages}
-                            visitPage={setCurrentPage}
+                            count={searchTotalPages}
+                            visitPage={setSearchCurrentPage}
                             previous={previousPage}
                             next={nextPage}
-                            active={currentPage}
-                            setActive={setCurrentPage}
+                            active={searchCurrentPage}
+                            setActive={setSearchCurrentPage}
                         />
                     ) : null}
                 </div>

@@ -4,6 +4,10 @@ import * as listingsService from "../services/listingService"
 export const ListingContext = createContext()
 
 export const ListingProvider = ({children}) => {
+    const [searchListings, setSearchListings] = useState([]);
+    const [searchCurrentPage, setSearchCurrentPage] = useState(1);
+    const [searchTotalPages, setSearchTotalPages] = useState(1);
+
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -12,7 +16,6 @@ export const ListingProvider = ({children}) => {
     const getAllListings = async (page) => {
         try {
             const result = await listingsService.getAllListings(page)
-            console.log(result)
             setListings(result.results)
             setTotalPages(Math.ceil(result.count / 3));
             return result
@@ -21,12 +24,16 @@ export const ListingProvider = ({children}) => {
         }
     };
 
-    const searchListings = async (credentials) => {
+    const getSearchListings = async (credentials) => {
         try {
             const result = await listingsService.searchListings(credentials);
-            console.log(result)
-            setListings(result)
-            setTotalPages(Math.ceil(result.count / 3));
+
+            for (const res of result) {
+                res.photo_main = "http://localhost:8000" + res.photo_main
+            }
+
+            setSearchListings(result)
+            setSearchTotalPages(Math.ceil(result.length / 3));
             return result
         } catch (error) {
             throw error
@@ -35,8 +42,12 @@ export const ListingProvider = ({children}) => {
 
     const listingContextData = {
         getAllListings,
+        getSearchListings,
         searchListings,
         listings,
+        searchCurrentPage,
+        searchTotalPages,
+        setSearchCurrentPage,
         currentPage,
         totalPages,
         setCurrentPage,

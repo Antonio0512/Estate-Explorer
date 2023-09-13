@@ -36,16 +36,18 @@ export const Listings = () => {
                 <div className='row'>
                     {listings ? (
                         listings.map((listing) => (
-                            <Card
-                                key={listing.slug}
-                                listing={listing}
-                            />
+                            <div className='col-1-of-3' key={listing.slug}>
+                                <Card
+                                    listing={listing}
+                                />
+                            </div>
                         ))
                     ) : (
                         <p>No listings available.</p>
                     )}
                 </div>
             </section>
+
             <section className='listings__pagination'>
                 <div className='row'>
                     <Pagination
@@ -60,5 +62,6 @@ export const Listings = () => {
                 </div>
             </section>
         </main>
-    );
+    )
+        ;
 };

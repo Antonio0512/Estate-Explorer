@@ -3,7 +3,7 @@ import {TailSpin} from "react-loader-spinner"
 import {ListingContext} from "../contexts/listingContext";
 
 export const ListingForm = () => {
-    const {searchListings} = useContext(ListingContext)
+    const {getSearchListings} = useContext(ListingContext)
 
     const [formData, setFormData] = useState({
         sale_type: 'For Sale',
@@ -27,7 +27,7 @@ export const ListingForm = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await searchListings(formData);
+            await getSearchListings(formData);
             setLoading(false);
         } catch (error) {
             console.error(error)
@@ -42,7 +42,7 @@ export const ListingForm = () => {
                 <div className='col-1-of-6'>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='sale_type'>Sale or Rent</label>
-                        <select className='listingform__select' name='sale_type' onChange={e => onChange(e)}
+                        <select id="sale_type" className='listingform__select' name='sale_type' onChange={e => onChange(e)}
                                 value={formData.sale_type}>
                             <option>For Sale</option>
                             <option>For Rent</option>
@@ -50,7 +50,7 @@ export const ListingForm = () => {
                     </div>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='sqft'>Sqft</label>
-                        <select className='listingform__select' name='sqft' onChange={e => onChange(e)}
+                        <select id="sqft" className='listingform__select' name='sqft' onChange={e => onChange(e)}
                                 value={formData.sqft}>
                             <option>1000+</option>
                             <option>1200+</option>
@@ -64,7 +64,7 @@ export const ListingForm = () => {
                 <div className='col-1-of-6'>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='price'>Minimum Price</label>
-                        <select className='listingform__select' name='price' onChange={e => onChange(e)}
+                        <select id="price" className='listingform__select' name='price' onChange={e => onChange(e)}
                                 value={formData.price}>
                             <option>$0+</option>
                             <option>$200,000+</option>
@@ -79,7 +79,7 @@ export const ListingForm = () => {
                     </div>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='days_listed'>Days Listed</label>
-                        <select className='listingform__select' name='days_listed' onChange={e => onChange(e)}
+                        <select id="days_listed" className='listingform__select' name='days_listed' onChange={e => onChange(e)}
                                 value={formData.days_listed}>
                             <option>1 or less</option>
                             <option>2 or less</option>
@@ -94,7 +94,7 @@ export const ListingForm = () => {
                 <div className='col-1-of-6'>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='bedrooms'>Bedrooms</label>
-                        <select className='listingform__select' name='bedrooms' onChange={e => onChange(e)}
+                        <select id="bedrooms" className='listingform__select' name='bedrooms' onChange={e => onChange(e)}
                                 value={formData.bedrooms}>
                             <option>0+</option>
                             <option>1+</option>
@@ -106,7 +106,7 @@ export const ListingForm = () => {
                     </div>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='has_photos'>Has Photos</label>
-                        <select className='listingform__select' name='has_photos' onChange={e => onChange(e)}
+                        <select id="has_photos" className='listingform__select' name='has_photos' onChange={e => onChange(e)}
                                 value={formData.has_photos}>
                             <option>1+</option>
                             <option>3+</option>
@@ -120,7 +120,7 @@ export const ListingForm = () => {
                 <div className='col-1-of-6'>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='home_type'>Home Type</label>
-                        <select className='listingform__select' name='home_type' onChange={e => onChange(e)}
+                        <select id="home_type" className='listingform__select' name='home_type' onChange={e => onChange(e)}
                                 value={formData.home_type}>
                             <option>House</option>
                             <option>Condo</option>
@@ -129,7 +129,7 @@ export const ListingForm = () => {
                     </div>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='keywords'>Keywords</label>
-                        <input className='listingform__input' name='keywords' type='text' onChange={e => onChange(e)}
+                        <input id="keywords" className='listingform__input' name='keywords' type='text' onChange={e => onChange(e)}
                                value={formData.keywords}/>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ export const ListingForm = () => {
                 <div className='col-1-of-6'>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='bathrooms'>Baths</label>
-                        <select className='listingform__select' name='bathrooms' onChange={e => onChange(e)}
+                        <select id="bathrooms" className='listingform__select' name='bathrooms' onChange={e => onChange(e)}
                                 value={formData.bathrooms}>
                             <option>0+</option>
                             <option>1+</option>
@@ -148,7 +148,7 @@ export const ListingForm = () => {
                     </div>
                     <div className='listingform__altsection'>
                         <label className='listingform__label' htmlFor='open_house'>Open Houses</label>
-                        <input className='listingform__checkbox' name='open_house' type='checkbox'
+                        <input id="open_house" className='listingform__checkbox' name='open_house' type='checkbox'
                                onChange={e => onChange(e)} value={formData.open_house}/>
                     </div>
                 </div>
