@@ -1,35 +1,22 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
 import {Helmet} from "react-helmet";
-import {Listings} from "./Listings";
+import {Listings} from "../components/Listings";
 import {Pagination} from "../components/Pagination";
 import {ListingForm} from "../components/ListingForm"
+import {ListingContext} from "../contexts/listingContext";
 
 export const Home = () => {
-    const [listings, setListings] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [listingsPerPage, setListingsPerPage] = useState(3)
-    const [active, setActive] = useState(2)
+    const {currentPage, totalPages, setCurrentPage, listings} = useContext(ListingContext);
 
-    const indexOfLastListing = currentPage * listingsPerPage;
-    const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-    const currentListings = listings.slice(indexOfFirstListing, indexOfLastListing);
-
-    const visitPage = (page) => {
-        setCurrentPage(page);
-        setActive(page);
-    };
-
-    const previous_number = () => {
-        if (currentPage !== 1) {
+    const previousPage = () => {
+        if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
-            setActive(currentPage - 1);
         }
     };
 
-    const next_number = () => {
-        if (currentPage !== Math.ceil(listings.length / 3)) {
+    const nextPage = () => {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
-            setActive(currentPage + 1);
         }
     };
 
@@ -43,26 +30,24 @@ export const Home = () => {
                 />
             </Helmet>
             <section className="home__form">
-                <ListingForm setListings={setListings}/>
+                <ListingForm/>
             </section>
             <section className="home__listings">
-                <Listings listings={currentListings}/>
+                <Listings/>
             </section>
-            <section className="home__pagination">
-                <div className="row">
-                    {
-                        listings && (
-                            <Pagination
-                                itemsPerPage={listingsPerPage}
-                                count={listings.length}
-                                visitPage={visitPage}
-                                previous={previous_number}
-                                next={next_number}
-                                active={active}
-                                setActive={setActive}
-                            />
-                        )
-                    }
+            <section className='listings__pagination'>
+                <div className='row'>
+                    {listings.length !== 0 ? (
+                        <Pagination
+                            itemsPerPage={3}
+                            count={totalPages}
+                            visitPage={setCurrentPage}
+                            previous={previousPage}
+                            next={nextPage}
+                            active={currentPage}
+                            setActive={setCurrentPage}
+                        />
+                    ) : null}
                 </div>
             </section>
         </main>

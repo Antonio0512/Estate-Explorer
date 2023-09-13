@@ -1,9 +1,9 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {TailSpin} from "react-loader-spinner"
 import {ListingContext} from "../contexts/listingContext";
 
 export const ListingForm = () => {
-    const {getListings} = useContext(ListingContext)
+    const {searchListings} = useContext(ListingContext)
 
     const [formData, setFormData] = useState({
         sale_type: 'For Sale',
@@ -12,19 +12,11 @@ export const ListingForm = () => {
         home_type: 'House',
         bathrooms: '0+',
         sqft: '1000+',
-        days_listed: '1 or less',
+        days_listed: 'Any',
         has_photos: '1+',
         open_house: 'false',
         keywords: ""
     });
-
-    useEffect(() => {
-        try {
-            getListings({...formData});
-        } catch (error) {
-            console.log(error)
-        }
-    }, [])
 
     const [loading, setLoading] = useState(false);
 
@@ -35,7 +27,7 @@ export const ListingForm = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await getListings({...formData});
+            await searchListings(formData);
             setLoading(false);
         } catch (error) {
             console.error(error)
@@ -89,11 +81,11 @@ export const ListingForm = () => {
                         <label className='listingform__label' htmlFor='days_listed'>Days Listed</label>
                         <select className='listingform__select' name='days_listed' onChange={e => onChange(e)}
                                 value={formData.days_listed}>
-                            <option>1 of less</option>
-                            <option>2 of less</option>
-                            <option>5 of less</option>
-                            <option>10 of less</option>
-                            <option>20 of less</option>
+                            <option>1 or less</option>
+                            <option>2 or less</option>
+                            <option>5 or less</option>
+                            <option>10 or less</option>
+                            <option>20 or less</option>
                             <option>Any</option>
                         </select>
                     </div>
