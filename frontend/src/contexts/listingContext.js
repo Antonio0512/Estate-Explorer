@@ -24,6 +24,14 @@ export const ListingProvider = ({children}) => {
         }
     };
 
+    const getOneListing = async (listingId, token) => {
+        try {
+            return await listingsService.getOneListing(listingId, token)
+        } catch (error) {
+            throw error
+        }
+    };
+
     const getSearchListings = async (credentials, page) => {
         try {
             const result = await listingsService.searchListings(credentials, page);
@@ -38,6 +46,7 @@ export const ListingProvider = ({children}) => {
     const listingContextData = {
         getAllListings,
         getSearchListings,
+        getOneListing,
         searchListings,
         listings,
         searchCurrentPage,

@@ -12,6 +12,19 @@ export const searchListings = async (credentials, page) => {
     }
 };
 
+export const getOneListing = async (listingId, token) => {
+    try {
+        const response = await axios.get(`${BASE_URL}${listingId}`, {
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getAllListings = async (page) => {
     try {
         const response = await axios.get(`${BASE_URL}?page=${page}`);

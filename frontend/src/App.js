@@ -33,7 +33,7 @@ function App() {
                         <Route path='/listings' element={<Listings/>}/>
 
                         <Route element={<AuthRouteGuard/>}>
-                            <Route path='/listings/:id' element={<ListingDetails/>}/>
+                            <Route path='/listings/:slug' element={<ListingDetails/>}/>
                         </Route>
 
                         <Route path="*" element={<NotFound/>}/>

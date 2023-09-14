@@ -36,9 +36,9 @@ export const AuthProvider = ({children}) => {
         signup,
         signin,
         logout,
-        isAuthenticated: auth?.token
-
-    }
+        isAuthenticated: auth?.token,
+        auth
+    };
 
     return (
         <>
