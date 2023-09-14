@@ -14,31 +14,34 @@ import {AuthProvider} from "./contexts/authContext";
 import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
 import {NoAuthRouteGuard} from "./routeGuards/noAuthRouteGuard";
 import {ListingProvider} from "./contexts/listingContext";
+import {RealtorProvider} from "./contexts/realtorContext";
 
 function App() {
     return (
         <AuthProvider>
             <ListingProvider>
-                <Layout>
-                    <Routes>
-                        <Route path='/' element={<Home/>}/>
+                <RealtorProvider>
+                    <Layout>
+                        <Routes>
+                            <Route path='/' element={<Home/>}/>
 
-                        <Route element={<NoAuthRouteGuard/>}>
-                            <Route path='/signup' element={<SignUp/>}/>
-                            <Route path='/signin' element={<SignIn/>}/>
-                        </Route>
+                            <Route element={<NoAuthRouteGuard/>}>
+                                <Route path='/signup' element={<SignUp/>}/>
+                                <Route path='/signin' element={<SignIn/>}/>
+                            </Route>
 
-                        <Route path='/about' element={<About/>}/>
-                        <Route path='/contact' element={<Contact/>}/>
-                        <Route path='/listings' element={<Listings/>}/>
+                            <Route path='/about' element={<About/>}/>
+                            <Route path='/contact' element={<Contact/>}/>
+                            <Route path='/listings' element={<Listings/>}/>
 
-                        <Route element={<AuthRouteGuard/>}>
-                            <Route path='/listings/:slug' element={<ListingDetails/>}/>
-                        </Route>
+                            <Route element={<AuthRouteGuard/>}>
+                                <Route path='/listings/:slug' element={<ListingDetails/>}/>
+                            </Route>
 
-                        <Route path="*" element={<NotFound/>}/>
-                    </Routes>
-                </Layout>
+                            <Route path="*" element={<NotFound/>}/>
+                        </Routes>
+                    </Layout>
+                </RealtorProvider>
             </ListingProvider>
         </AuthProvider>
     );

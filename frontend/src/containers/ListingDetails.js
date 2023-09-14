@@ -3,12 +3,15 @@ import {Helmet} from 'react-helmet';
 import {Link, useParams} from 'react-router-dom';
 import {ListingContext} from "../contexts/listingContext";
 import {AuthContext} from "../contexts/authContext";
+import {RealtorContext} from "../contexts/realtorContext";
 
 export const ListingDetails = () => {
     const {slug} = useParams();
     const {getOneListing} = useContext(ListingContext)
+    const {getOneRealtor} = useContext(RealtorContext)
     const {auth} = useContext(AuthContext)
     const [listing, setListing] = useState("")
+    const [realtor, setRealtor] = useState("")
 
 
     const numberWithCommas = (x) => {
@@ -20,12 +23,17 @@ export const ListingDetails = () => {
             try {
                 const currListing = await getOneListing(slug, auth.token);
                 setListing(currListing);
+                if (currListing) {
+                    const currRealtor = await getOneRealtor(currListing.realtor, auth.token);
+                    setRealtor(currRealtor);
+                }
             } catch (error) {
                 console.error(error);
             }
         };
         fetchListing();
     }, [slug]);
+
 
     const displayInteriorImages = () => {
         let images = [];
@@ -133,7 +141,7 @@ export const ListingDetails = () => {
                         listing.photo_10 ? (
                             <div className='listingdetail__display'>
                                 <img className='listingdetail__display__image' src={listing.photo_10} alt=''/>
-                            </div>
+                            < /div>
                         ) : null
                     }
                 </div>
@@ -272,30 +280,27 @@ export const ListingDetails = () => {
                         <img className='listingdetail__display__image' src={listing.photo_main} alt=''/>
                     </div>
                 </div>
-                {/*<div className='col-1-of-4'>*/}
-                {/*    <div className='listingdetail__display'>*/}
-                {/*        <img className='listingdetail__display__image' src={realtor.photo} alt=''/>*/}
-                {/*    </div>*/}
-                {/*    <h3 className='listingdetail__realtor'>{realtor.name}</h3>*/}
-                {/*    <p className='listingdetail__contact'>{realtor.phone}</p>*/}
-                {/*    <p className='listingdetail__contact'>{realtor.email}</p>*/}
-                {/*    <p className='listingdetail__about'>{realtor.description}</p>*/}
-                {/*</div>*/}
+                <div className='col-1-of-4'>
+                    <div className='listingdetail__display'>
+                        <img className='listingdetail__display__image' src={realtor.photo} alt=''/>
+                    </div>
+                    <h3 className='listingdetail__realtor'>{realtor.name}</h3>
+                    <p className='listingdetail__contact'>{realtor.phone}</p>
+                    <p className='listingdetail__contact'>{realtor.email}</p>
+                    <p className='listingdetail__about'>{realtor.description}</p>
+                </div>
             </div>
             <div className='row'>
-                {listing ? (
-                    <div className='col-1-of-2'>
-                        <ul className='listingdetail__list'>
-                            <li className='listingdetail__list__item'>Home Type: {listing.home_type}</li>
-                            <li className='listingdetail__list__item'>Price: ${numberWithCommas(listing.price)}</li>
-                            <li className='listingdetail__list__item'>Bedrooms: {listing.bedrooms}</li>
-                            <li className='listingdetail__list__item'>Bathrooms: {listing.bathrooms}</li>
-                            <li className='listingdetail__list__item'>Square Feet: {listing.sqft}</li>
-                        </ul>
-                    </div>
-                ) : (
-                    <p>Loading...</p>
-                )}
+                <div className='col-1-of-2'>
+                    <ul className='listingdetail__list'>
+                        <li className='listingdetail__list__item'>Home Type: {listing.home_type}</li>
+                        <li className='listingdetail__list__item'>Price:
+                            ${listing.price ? numberWithCommas(listing.price) : listing.price}</li>
+                        <li className='listingdetail__list__item'>Bedrooms: {listing.bedrooms}</li>
+                        <li className='listingdetail__list__item'>Bathrooms: {listing.bathrooms}</li>
+                        <li className='listingdetail__list__item'>Square Feet: {listing.sqft}</li>
+                    </ul>
+                </div>
                 <div className='col-1-of-2'>
                     <ul className='listingdetail__list'>
                         <li className='listingdetail__list__item'>Sale Type: {listing.sale_type}</li>
