@@ -24,16 +24,11 @@ export const ListingProvider = ({children}) => {
         }
     };
 
-    const getSearchListings = async (credentials) => {
+    const getSearchListings = async (credentials, page) => {
         try {
-            const result = await listingsService.searchListings(credentials);
-
-            for (const res of result) {
-                res.photo_main = "http://localhost:8000" + res.photo_main
-            }
-
-            setSearchListings(result)
-            setSearchTotalPages(Math.ceil(result.length / 3));
+            const result = await listingsService.searchListings(credentials, page);
+            setSearchListings(result.results)
+            setSearchTotalPages(Math.ceil(result.count / 3));
             return result
         } catch (error) {
             throw error

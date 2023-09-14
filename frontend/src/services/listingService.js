@@ -2,9 +2,10 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8000/api/listings/"
 
-export const searchListings = async (credentials) => {
+export const searchListings = async (credentials, page) => {
+
     try {
-        const response = await axios.post(`${BASE_URL}search/`, credentials);
+        const response = await axios.post(`${BASE_URL}search/?page=${page}`, credentials);
         return response.data
     } catch (error) {
         throw error

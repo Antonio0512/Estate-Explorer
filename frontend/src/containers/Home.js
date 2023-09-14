@@ -6,10 +6,14 @@ import {ListingForm} from "../components/ListingForm"
 import {ListingContext} from "../contexts/listingContext";
 
 export const Home = () => {
-    const { searchCurrentPage, searchTotalPages, setSearchCurrentPage, searchListings } = useContext(ListingContext);
+    const {
+        searchCurrentPage,
+        searchTotalPages,
+        setSearchCurrentPage,
+        searchListings
+    } = useContext(ListingContext);
 
-    const itemsPerPage = 3;
-    const previousPage = () => {
+    const previousPage = async () => {
         if (searchCurrentPage > 1) {
             setSearchCurrentPage(searchCurrentPage - 1);
         }
@@ -21,14 +25,6 @@ export const Home = () => {
         }
     };
 
-    // Calculate the start and end indices for the current page
-    const startIndex = (searchCurrentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    // Slice the searchListings array to display only items for the current page
-    const displayedListings = searchListings.slice(startIndex, endIndex);
-
-
     return (
         <main className="home">
             <Helmet>
@@ -39,10 +35,10 @@ export const Home = () => {
                 />
             </Helmet>
             <section className="home__form">
-                <ListingForm/>
+                <ListingForm currentPage={searchCurrentPage}/>
             </section>
             <section className="home__listings">
-                <Listings listings={displayedListings}/>
+                <Listings/>
             </section>
             <section className='home__pagination'>
                 <div className='row'>
