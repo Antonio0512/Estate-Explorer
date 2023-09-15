@@ -21,7 +21,7 @@ export const RealtorProvider = ({children}) => {
             const result = await realtorService.getAllRealtors(page);
             setRealtors(result.results);
             setTotalPages(Math.ceil(result.count / 3));
-            return result
+            return result.results
         } catch (error) {
             throw error;
         }
@@ -30,7 +30,16 @@ export const RealtorProvider = ({children}) => {
     const getListingsByRealtor = async (realtorId, token) => {
         try {
             const result = await realtorService.getListingsByRealtor(realtorId, token);
-            return result.results
+            return result.results;
+        } catch (error) {
+            throw error
+        }
+    };
+
+    const getTopRealtors = async () => {
+        try {
+            const result = await realtorService.getTopRealtors();
+            return result.results;
         } catch (error) {
             throw error
         }
@@ -41,6 +50,7 @@ export const RealtorProvider = ({children}) => {
         getOneRealtor,
         getAllRealtors,
         getListingsByRealtor,
+        getTopRealtors,
         realtors,
         currentPage,
         setCurrentPage,

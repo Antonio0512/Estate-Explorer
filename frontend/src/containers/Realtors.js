@@ -8,14 +8,14 @@ export const Realtors = () => {
     const {realtors, getAllRealtors, currentPage, totalPages, setCurrentPage} = useContext(RealtorContext)
 
     useEffect(() => {
-        const fetchRealtor = async () => {
+        const fetchRealtors = async () => {
             try {
                 await getAllRealtors(currentPage);
             } catch (error) {
                 console.error(error)
             }
         };
-        fetchRealtor()
+        fetchRealtors()
     }, [currentPage]);
 
 

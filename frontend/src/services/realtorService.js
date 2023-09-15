@@ -38,3 +38,12 @@ export const getListingsByRealtor = async (realtorId, token) => {
         throw error
     }
 };
+
+export const getTopRealtors = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}topseller/`)
+        return response.data
+    } catch (error) {
+        throw error
+    }
+};
