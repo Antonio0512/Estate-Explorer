@@ -33,7 +33,6 @@ export const RealtorDetails = () => {
             </Helmet>
             <div className='listingdetail__header'>
                 <h1 className='listingdetail__title'>{realtor.name}</h1>
-                <p className='listingdetail__location'>{realtor.city}, {realtor.state}</p>
             </div>
             <div className='row'>
                 <div className='listingdetail__breadcrumb'>

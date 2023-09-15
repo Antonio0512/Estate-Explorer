@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext, Fragment} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Helmet} from 'react-helmet';
 import {RealtorContext} from '../contexts/realtorContext';
 import House from '../assets/images/house asset.jpg';
@@ -20,60 +20,6 @@ export const About = () => {
         getSellers();
     }, []);
 
-    const getRealtors = () => {
-        let allRealtors = [];
-
-        realtors.forEach((realtor) => {
-            allRealtors.push(
-                <Fragment key={realtor.id}>
-                    <div className='about__display'>
-                        <img className='about__display__image' src={realtor.photo} alt=''/>
-                    </div>
-                    <h3 className='about__realtor'>{realtor.name}</h3>
-                    <p className='about__contact'>{realtor.phone}</p>
-                    <p className='about__contact'>{realtor.email}</p>
-                    <p className='about__about'>{realtor.description}</p>
-                </Fragment>
-            );
-        });
-
-        let results = [];
-        for (let i = 0; i < allRealtors.length; i += 3) {
-            results.push(
-                <div key={i} className='row'>
-                    <div className='col-1-of-3'>{allRealtors[i]}</div>
-                    <div className='col-1-of-3'>
-                        {allRealtors[i + 1] ? allRealtors[i + 1] : null}
-                    </div>
-                    <div className='col-1-of-3'>
-                        {allRealtors[i + 2] ? allRealtors[i + 2] : null}
-                    </div>
-                </div>
-            );
-        }
-
-        return results;
-    };
-
-    const getTopSeller = () => {
-        let result = [];
-
-        topSeller.forEach((seller) => {
-            result.push(
-                <Fragment key={seller.id}>
-                    <div className='about__display'>
-                        <img className='about__display__image' src={seller.photo} alt=''/>
-                    </div>
-                    <h3 className='about__topseller'>Top Seller:</h3>
-                    <p className='about__realtor'>{seller.name}</p>
-                    <p className='about__contact'>{seller.phone}</p>
-                    <p className='about__contact'>{seller.email}</p>
-                </Fragment>
-            );
-        });
-
-        return result;
-    };
 
     return (
         <main className='about'>
@@ -117,7 +63,7 @@ export const About = () => {
                         </p>
                     </div>
                     <div className='col-1-of-4'>
-                        {topSeller.map((seller) => (
+                        {topSeller.slice(0, 3).map((seller) => (
                             <div className='about__display' key={seller.id}>
                                 <img className='about__display__image' src={seller.photo} alt=''/>
                                 <h3 className='about__topseller'>Top Seller:</h3>
@@ -133,7 +79,19 @@ export const About = () => {
                 <div className='row'>
                     <h2 className='about__subheading'>Meet our awesome team!</h2>
                 </div>
-                {getRealtors()}
+                <div className='row'>
+                    {realtors.slice(0, 3).map((realtor) => (
+                        <div className='col-1-of-3' key={realtor.id}>
+                            <div className='about__display'>
+                                <img className='about__display__image' src={realtor.photo} alt=''/>
+                            </div>
+                            <h3 className='about__realtor'>{realtor.name}</h3>
+                            <p className='about__contact'>{realtor.phone}</p>
+                            <p className='about__contact'>{realtor.email}</p>
+                            <p className='about__about'>{realtor.description}</p>
+                        </div>
+                    ))};
+                </div>
             </section>
         </main>
     );

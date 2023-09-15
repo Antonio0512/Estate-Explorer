@@ -6,9 +6,7 @@ from rest_framework.response import Response
 
 
 class ContactCreateView(APIView):
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, format=None):
+    def post(self, request):
         data = self.request.data
 
         try:
