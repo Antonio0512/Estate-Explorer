@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {Listings} from "../components/Listings";
 import {Pagination} from "../components/Pagination";
@@ -7,11 +7,40 @@ import {ListingContext} from "../contexts/listingContext";
 
 export const Home = () => {
     const {
+        getSearchListings,
         searchCurrentPage,
         searchTotalPages,
         setSearchCurrentPage,
-        searchListings
     } = useContext(ListingContext);
+
+    const [searchListings, setSearchListings] = useState(null)
+
+    const [formData, setFormData] = useState({
+        sale_type: "For Sale",
+        price: "$0+",
+        bedrooms: "0+",
+        home_type: "House",
+        bathrooms: "0+",
+        sqft: "1000+",
+        days_listed: "Any",
+        has_photos: "1+",
+        open_house: "false",
+        keywords: "",
+    });
+
+    useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const result = await getSearchListings(formData, searchCurrentPage)
+                    setSearchListings(result.results);
+                } catch (error) {
+                    console.error(error)
+                }
+            };
+            fetchData();
+        },
+        [searchCurrentPage]);
+
 
     const previousPage = async () => {
         if (searchCurrentPage > 1) {
@@ -25,6 +54,20 @@ export const Home = () => {
         }
     };
 
+    const updateFormData = (newFormData) => {
+        setFormData(newFormData);
+    };
+
+    const handleFormSubmit = async () => {
+        try {
+            const result = await getSearchListings(formData, searchCurrentPage);
+            setSearchListings(result.results);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <main className="home">
             <Helmet>
@@ -35,14 +78,19 @@ export const Home = () => {
                 />
             </Helmet>
             <section className="home__form">
-                <ListingForm currentPage={searchCurrentPage}/>
+                <ListingForm
+                    currentPage={searchCurrentPage}
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onFormSubmit={handleFormSubmit}
+                />
             </section>
             <section className="home__listings">
                 <Listings/>
             </section>
             <section className='home__pagination'>
                 <div className='row'>
-                    {searchListings.length !== 0 ? (
+                    {searchListings ? (
                         <Pagination
                             itemsPerPage={3}
                             count={searchTotalPages}

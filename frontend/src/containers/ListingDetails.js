@@ -277,7 +277,7 @@ export const ListingDetails = () => {
             <div className='row'>
                 <div className='col-3-of-4'>
                     <div className='listingdetail__display'>
-                        <img className='listingdetail__display__image' src={listing.photo_main} alt=''/>
+                        <img className='listingdetail__display__image__main' src={listing.photo_main} alt=''/>
                     </div>
                 </div>
                 <div className='col-1-of-4'>

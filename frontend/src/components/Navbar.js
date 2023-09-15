@@ -33,7 +33,7 @@ export const Navbar = () => {
                     <Link className='navbar__bottom__item__link' to='/'>Home</Link>
                 </li>
                 <li className='navbar__bottom__item'>
-                    <Link className='navbar__bottom__item__link' to='/listings'>Listings</Link>
+                    <Link className='navbar__bottom__item__link' to='/realtors'>Realtors</Link>
                 </li>
                 <li className='navbar__bottom__item'>
                     <Link className='navbar__bottom__item__link' to='/about'>About</Link>

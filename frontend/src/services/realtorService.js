@@ -15,3 +15,13 @@ export const getRealtor = async (realtorId, token) => {
         throw error;
     }
 };
+
+
+export const getAllRealtors = async (page) => {
+    try {
+        const response = await axios.get(`${BASE_URL}?page=${page}`);
+        return response.data;
+    } catch (error) {
+        throw error
+    }
+};

@@ -1,46 +1,29 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {TailSpin} from "react-loader-spinner"
 import {ListingContext} from "../contexts/listingContext";
 
-export const ListingForm = ({currentPage}) => {
+export const ListingForm = ({currentPage, formData, updateFormData, onFormSubmit}) => {
     const {getSearchListings} = useContext(ListingContext)
-
-    const [searchListings, setSearchListings] = useState(null)
-
-    useEffect(() => {
-        if (searchListings !== null) {
-            getSearchListings(formData, currentPage)
-        }
-    }, [searchListings, currentPage])
-
-    const [formData, setFormData] = useState({
-        sale_type: 'For Sale',
-        price: '$0+',
-        bedrooms: '0+',
-        home_type: 'House',
-        bathrooms: '0+',
-        sqft: '1000+',
-        days_listed: 'Any',
-        has_photos: '1+',
-        open_house: 'false',
-        keywords: ""
-    });
 
     const [loading, setLoading] = useState(false);
 
+    const onChange = (e) => {
+        const {name, value, type, checked} = e.target;
+        const newValue = type === "checkbox" ? (checked ? "true" : "false") : value;
+        updateFormData({...formData, [name]: newValue});
+    };
 
-    const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const result = await getSearchListings(formData, currentPage);
-            setSearchListings(result.results)
-            setLoading(false);
+            await getSearchListings(formData, currentPage);
+            onFormSubmit();
         } catch (error) {
-            console.error(error)
-            setLoading(false)
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 

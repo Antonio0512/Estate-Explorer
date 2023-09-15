@@ -1,15 +1,23 @@
-import {Helmet} from 'react-helmet';
-import {Card} from '../components/Card';
-import {ListingContext} from '../contexts/listingContext';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect} from "react";
+import {RealtorContext} from "../contexts/realtorContext";
+import {RealtorsCard} from "../components/RealtorsCard"
 import {Pagination} from "../components/Pagination";
+import {Helmet} from "react-helmet";
 
-export const Listings = () => {
-    const {listings, getAllListings, currentPage, totalPages, setCurrentPage} = useContext(ListingContext);
+export const Realtors = () => {
+    const {realtors, getAllRealtors, currentPage, totalPages, setCurrentPage} = useContext(RealtorContext)
 
     useEffect(() => {
-        getAllListings(currentPage);
+        const fetchRealtor = async () => {
+            try {
+                await getAllRealtors(currentPage);
+            } catch (error) {
+                console.error(error)
+            }
+        };
+        fetchRealtor()
     }, [currentPage]);
+
 
     const previousPage = () => {
         if (currentPage > 1) {
@@ -23,10 +31,11 @@ export const Listings = () => {
         }
     };
 
+
     return (
         <main className='listings'>
             <Helmet>
-                <title>Realest Estate - Listings</title>
+                <title>Realest Estate - Realtors</title>
                 <meta
                     name='description'
                     content='Listings page'
@@ -34,20 +43,19 @@ export const Listings = () => {
             </Helmet>
             <section className='listings__listings'>
                 <div className='row'>
-                    {listings ? (
-                        listings.map((listing) => (
-                            <div className='col-1-of-3' key={listing.slug}>
-                                <Card
-                                    listing={listing}
+                    {realtors ? (
+                        realtors.map((realtor) => (
+                            <div className='col-1-of-3' key={realtor.id}>
+                                <RealtorsCard
+                                    realtor={realtor}
                                 />
                             </div>
                         ))
                     ) : (
-                        <p>No listings available.</p>
+                        <p>No realtors available.</p>
                     )}
                 </div>
             </section>
-
             <section className='listings__pagination'>
                 <div className='row'>
                     <Pagination
@@ -62,6 +70,5 @@ export const Listings = () => {
                 </div>
             </section>
         </main>
-    )
-        ;
+    );
 };

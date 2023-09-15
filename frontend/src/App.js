@@ -2,13 +2,12 @@ import {Route, Routes} from "react-router-dom";
 import {Home} from './containers/Home';
 import {About} from './containers/About';
 import {Contact} from './containers/Contact';
-import {Listings} from './containers/Listings';
 import {ListingDetails} from './containers/ListingDetails';
 import {SignUp} from './containers/SignUp';
 import {SignIn} from './containers/SignIn';
 import {NotFound} from "./components/NotFound";
 import {Layout} from './hocs/Layout';
-
+import {Realtors} from './containers/Realtors'
 import "./sass/main.scss";
 import {AuthProvider} from "./contexts/authContext";
 import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
@@ -30,9 +29,9 @@ function App() {
                                 <Route path='/signin' element={<SignIn/>}/>
                             </Route>
 
+                            <Route path='/realtors' element={<Realtors/>}/>
                             <Route path='/about' element={<About/>}/>
                             <Route path='/contact' element={<Contact/>}/>
-                            <Route path='/listings' element={<Listings/>}/>
 
                             <Route element={<AuthRouteGuard/>}>
                                 <Route path='/listings/:slug' element={<ListingDetails/>}/>
