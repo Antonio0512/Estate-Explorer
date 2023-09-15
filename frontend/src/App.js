@@ -14,6 +14,7 @@ import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
 import {NoAuthRouteGuard} from "./routeGuards/noAuthRouteGuard";
 import {ListingProvider} from "./contexts/listingContext";
 import {RealtorProvider} from "./contexts/realtorContext";
+import {RealtorDetails} from "./containers/RealtorDetails";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
 
                             <Route element={<AuthRouteGuard/>}>
                                 <Route path='/listings/:slug' element={<ListingDetails/>}/>
+                                <Route path='/realtors/:id' element={<RealtorDetails/>}/>
                             </Route>
 
                             <Route path="*" element={<NotFound/>}/>

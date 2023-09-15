@@ -27,10 +27,20 @@ export const RealtorProvider = ({children}) => {
         }
     };
 
+    const getListingsByRealtor = async (realtorId, token) => {
+        try {
+            const result = await realtorService.getListingsByRealtor(realtorId, token);
+            return result.results
+        } catch (error) {
+            throw error
+        }
+    };
+
 
     const realtorContextData = {
         getOneRealtor,
         getAllRealtors,
+        getListingsByRealtor,
         realtors,
         currentPage,
         setCurrentPage,

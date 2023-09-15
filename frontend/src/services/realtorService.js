@@ -25,3 +25,16 @@ export const getAllRealtors = async (page) => {
         throw error
     }
 };
+
+export const getListingsByRealtor = async (realtorId, token) => {
+    try {
+        const response = await axios.get(`${BASE_URL}${realtorId}/listings/`, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error
+    }
+};

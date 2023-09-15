@@ -281,9 +281,12 @@ export const ListingDetails = () => {
                     </div>
                 </div>
                 <div className='col-1-of-4'>
-                    <div className='listingdetail__display'>
-                        <img className='listingdetail__display__image' src={realtor.photo} alt=''/>
-                    </div>
+                    <Link to={`/realtors/${realtor.id}`}>
+
+                        <div className='listingdetail__display'>
+                            <img className='listingdetail__display__image' src={realtor.photo} alt=''/>
+                        </div>
+                    </Link>
                     <h3 className='listingdetail__realtor'>{realtor.name}</h3>
                     <p className='listingdetail__contact'>{realtor.phone}</p>
                     <p className='listingdetail__contact'>{realtor.email}</p>
